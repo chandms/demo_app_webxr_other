@@ -564,7 +564,7 @@ AFRAME.registerComponent('over-writing',{
             dist_el_text.setAttribute('position','0 0 0');
             // dist_el_text.setAttribute('position','0.302 2.4 -2.450');
 
-            // dist_el.setAttribute('class','raycastable');
+            dist_el.setAttribute('class','raycastable');
 
 
             
