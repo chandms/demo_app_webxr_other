@@ -651,62 +651,62 @@ AFRAME.registerComponent('over-writing',{
   }
 });
 
-AFRAME.registerComponent('clev', {
-  init: function(){
-    console.log('clev', this.el);
+// AFRAME.registerComponent('clev', {
+//   init: function(){
+//     console.log('clev', this.el);
     
-    var el = this.el;
+//     var el = this.el;
     
-    this.el.addEventListener('fusing', function(ev, target){
-      console.log('fusing clev');
+//     this.el.addEventListener('fusing', function(ev, target){
+//       console.log('fusing clev');
       
-      ////
+//       ////
       
-      content += "fusing: time: " +Date.now()+" "+JSON.stringify(el.getAttribute('position'))+"\n";
+//       content += "fusing: time: " +Date.now()+" "+JSON.stringify(el.getAttribute('position'))+"\n";
     
     
-      // var cur_pos = this.el.getAttribute('position');
-      // var cur_rot = this.el.getAttribute('rotation');
+//       // var cur_pos = this.el.getAttribute('position');
+//       // var cur_rot = this.el.getAttribute('rotation');
 
-      var arm_sc = document.querySelector('a-scene');
-
-
-
-      var dist_el_text = document.createElement('a-text');
+//       var arm_sc = document.querySelector('a-scene');
 
 
-      arm_sc.appendChild(dist_el_text);
 
-      dist_el_text.setAttribute('value','Click on the Home');
-      dist_el_text.setAttribute('color','blue');
-      dist_el_text.setAttribute('scale','1 1 1');
-
-      //dist_el_text.setAttribute('position','0.302 2.6 -2.450');
-      dist_el_text.setAttribute('id',"dist_el_text32");
-      // dist_el_text.setAttribute('class','raycastable');
+//       var dist_el_text = document.createElement('a-text');
 
 
-      dist_el_text.setAttribute("position",'-2 1.5 -1.5');
+//       arm_sc.appendChild(dist_el_text);
+
+//       dist_el_text.setAttribute('value','Click on the Home');
+//       dist_el_text.setAttribute('color','blue');
+//       dist_el_text.setAttribute('scale','1 1 1');
+
+//       //dist_el_text.setAttribute('position','0.302 2.6 -2.450');
+//       dist_el_text.setAttribute('id',"dist_el_text32");
+//       // dist_el_text.setAttribute('class','raycastable');
+
+
+//       dist_el_text.setAttribute("position",'-2 1.5 -1.5');
       
-      ///
+//       ///
       
-    });
+//     });
     
-    this.el.addEventListener('raycaster-intersected-cleared', function(ev, target){
-     var text_comp = document.querySelector('#dist_el_text32');
-        if(text_comp){
-          text_comp.parentNode.removeChild(text_comp);
-        }
-    });
+//     this.el.addEventListener('raycaster-intersected-cleared', function(ev, target){
+//      var text_comp = document.querySelector('#dist_el_text32');
+//         if(text_comp){
+//           text_comp.parentNode.removeChild(text_comp);
+//         }
+//     });
     
     
-    this.el.addEventListener('click', function(ev, target){
-      console.log('click clev');
-      content += "redirection happened\n";
-      window.location.href = 'https://chandms.github.io/demo_app_webxr_main/';
-    });
-  }
-});
+//     this.el.addEventListener('click', function(ev, target){
+//       console.log('click clev');
+//       content += "redirection happened\n";
+//       window.location.href = 'https://chandms.github.io/demo_app_webxr_main/';
+//     });
+//   }
+// });
 
 
 AFRAME.registerComponent('game-manager', {
