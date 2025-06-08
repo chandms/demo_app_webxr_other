@@ -488,18 +488,6 @@ AFRAME.registerComponent('add-comp', {
     rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: false;" raycaster="objects: .raycastable"  ></a-entity>';
     document.querySelector("a-scene").appendChild(rightController);
     
-    // var leftController = document.createElement("a-entity");
-    // leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: false"></a-entity>';
-    // document.querySelector("a-scene").appendChild(leftController);
-    //  leftController.setAttribute('visible', true);
-    
-    
-    
-    // var rightController = document.createElement("a-entity");
-    // rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E" raycaster="objects: .raycastable"  line="visible: false"></a-entity>';
-    // document.querySelector("a-scene").appendChild(rightController);
-    // rightController.setAttribute('visible', true);
-    
     
     var scene = document.querySelector('a-scene');
 
@@ -662,63 +650,6 @@ AFRAME.registerComponent('over-writing',{
   }
 });
 
-// AFRAME.registerComponent('clev', {
-//   init: function(){
-//     console.log('clev', this.el);
-    
-//     var el = this.el;
-    
-//     this.el.addEventListener('fusing', function(ev, target){
-//       console.log('fusing clev');
-      
-//       ////
-      
-//       content += "fusing: time: " +Date.now()+" "+JSON.stringify(el.getAttribute('position'))+"\n";
-    
-    
-//       // var cur_pos = this.el.getAttribute('position');
-//       // var cur_rot = this.el.getAttribute('rotation');
-
-//       var arm_sc = document.querySelector('a-scene');
-
-
-
-//       var dist_el_text = document.createElement('a-text');
-
-
-//       arm_sc.appendChild(dist_el_text);
-
-//       dist_el_text.setAttribute('value','Click on the Home');
-//       dist_el_text.setAttribute('color','blue');
-//       dist_el_text.setAttribute('scale','1 1 1');
-
-//       //dist_el_text.setAttribute('position','0.302 2.6 -2.450');
-//       dist_el_text.setAttribute('id',"dist_el_text32");
-//       // dist_el_text.setAttribute('class','raycastable');
-
-
-//       dist_el_text.setAttribute("position",'-2 1.5 -1.5');
-      
-//       ///
-      
-//     });
-    
-//     this.el.addEventListener('raycaster-intersected-cleared', function(ev, target){
-//      var text_comp = document.querySelector('#dist_el_text32');
-//         if(text_comp){
-//           text_comp.parentNode.removeChild(text_comp);
-//         }
-//     });
-    
-    
-//     this.el.addEventListener('click', function(ev, target){
-//       console.log('click clev');
-//       content += "redirection happened\n";
-//       window.location.href = 'https://chandms.github.io/demo_app_webxr_main/';
-//     });
-//   }
-// });
-
 
 AFRAME.registerComponent('game-manager', {
   schema: {},
@@ -851,79 +782,6 @@ AFRAME.registerComponent('armadillo', {
       y: cur_rot.y,
       z: cur_rot.z
     });
-    
-    
-    /////////
-    
-//     var dist_el_n = document.createElement('a-entity');
-//             var cur_scene = document.querySelector('a-scene');
-            
-//             cur_scene.appendChild(dist_el_n);
-
-
-//             var dist_el_text_n = document.createElement('a-text');
-
-//             dist_el_n.appendChild(dist_el_text);
-
-//             dist_el_text_n.setAttribute('value',' Fusing!!');
-//             dist_el_text_n.setAttribute('scale',' 0.5 0.5 0.5');
-//             dist_el_text_n.setAttribute('color','red');
-
-
-//             dist_el_text_n.setAttribute('position','0 0 0');
-//             // dist_el_text.setAttribute('position','0.302 2.4 -2.450');
-
-//             // dist_el.setAttribute('class','raycastable');
-
-
-            
-//             dist_el_n.setAttribute('geometry',{
-//               primitive: 'box',
-//               width: 0.2,
-//               height: 0.2,
-//               depth: 0.2
-
-
-//             });
-            
-//             dist_el_n.setAttribute('material',{
-//               color: 'green',
-//               opacity: 0.8
-//             });
-            
-            
-//             var gz = document.querySelector('#gazeCursor');
-    
-//             var rot = gz.getAttribute('rotation');
-
-
-
-
-//             var target_pos = new THREE.Vector3(); 
-//             var target_qt = new THREE.Quaternion()
-
-//             gz.object3D.getWorldPosition( target_pos );
-
-
-
-//             gz.object3D.getWorldQuaternion(target_qt);
-
-
-
-//             var tmpEuler = new THREE.Euler();
-
-//             tmpEuler.setFromQuaternion(target_qt.normalize()); 
-
-
-//             dist_el_n.setAttribute("position",{
-//               x: target_pos.x,
-//               y: target_pos.y,
-//               z: target_pos.z
-//             });
-
-
-
-//             dist_el_n.setAttribute('id',"dist_el_n");
     
 
     
