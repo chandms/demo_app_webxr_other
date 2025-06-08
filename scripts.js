@@ -477,18 +477,28 @@ AFRAME.registerComponent('add-comp', {
     
     // add the controllers
     // changed the visibility
-    
+
     var leftController = document.createElement("a-entity");
     leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: false"></a-entity>';
     document.querySelector("a-scene").appendChild(leftController);
-     leftController.setAttribute('visible', true);
     
     
     
     var rightController = document.createElement("a-entity");
-    rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E" raycaster="objects: .raycastable"  line="visible: false"></a-entity>';
+    rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: false;" raycaster="objects: .raycastable"  ></a-entity>';
     document.querySelector("a-scene").appendChild(rightController);
-    rightController.setAttribute('visible', true);
+    
+    // var leftController = document.createElement("a-entity");
+    // leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: false"></a-entity>';
+    // document.querySelector("a-scene").appendChild(leftController);
+    //  leftController.setAttribute('visible', true);
+    
+    
+    
+    // var rightController = document.createElement("a-entity");
+    // rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E" raycaster="objects: .raycastable"  line="visible: false"></a-entity>';
+    // document.querySelector("a-scene").appendChild(rightController);
+    // rightController.setAttribute('visible', true);
     
     
     var scene = document.querySelector('a-scene');
@@ -541,7 +551,7 @@ AFRAME.registerComponent('over-writing',{
     this.el.addEventListener('raycaster-intersected', function(ev, target){
     // this.el.addEventListener('click', function(ev, target){
           
-          if(over_write_start==1){
+          if(over_write_start>=1){
             content += "raycaster intersected overwritten: time: "+Date.now()+"\n";
             var cur_scene = document.querySelector('a-scene');
             console.log(cur_el);
@@ -632,7 +642,7 @@ AFRAME.registerComponent('over-writing',{
               // console.log('oops',cur_el.getAttribute('id'));
       
       
-             if(over_write_start==1){
+             if(over_write_start>=1){
       
               var alert_comp = document.querySelector('#dist_el');
       
@@ -724,7 +734,6 @@ AFRAME.registerComponent('game-manager', {
 			rand = Math.floor(Math.random() * positions.length);
 		}
 		
-		el.setAttribute('class','clickable');
 		el.setAttribute('armadillo','');
     el.setAttribute('id','arm'+i);
     el.setAttribute('num',i);
