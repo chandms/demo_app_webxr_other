@@ -703,7 +703,7 @@ AFRAME.registerComponent('clev', {
     this.el.addEventListener('click', function(ev, target){
       console.log('click clev');
       content += "redirection happened\n";
-      window.location.href = 'https://demo-app-webxr.glitch.me/index.html';
+      window.location.href = 'https://chandms.github.io/demo_app_webxr_main/';
     });
   }
 });
@@ -1068,7 +1068,7 @@ AFRAME.registerComponent('timer', {
       restart_text_comp.setAttribute('position', '-0.3 0.7 0.2');
       restart_text_comp.setAttribute("id","restart-text");
       restart_comp.setAttribute("id","restart");
-      restart_comp.setAttribute("position","0.302 0.5 -3");
+      restart_comp.setAttribute("position","0.302 0.5 -6");
       
       
       cur_scene.addEventListener('enter-vr',function(ev, target){
