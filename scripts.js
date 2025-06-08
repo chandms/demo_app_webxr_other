@@ -481,14 +481,14 @@ AFRAME.registerComponent('add-comp', {
     var leftController = document.createElement("a-entity");
     leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: false"></a-entity>';
     document.querySelector("a-scene").appendChild(leftController);
-     leftController.setAttribute('visible', false);
+     leftController.setAttribute('visible', true);
     
     
     
     var rightController = document.createElement("a-entity");
     rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E" raycaster="objects: .raycastable"  line="visible: false"></a-entity>';
     document.querySelector("a-scene").appendChild(rightController);
-    rightController.setAttribute('visible', false);
+    rightController.setAttribute('visible', true);
     
     
     var scene = document.querySelector('a-scene');
@@ -544,6 +544,7 @@ AFRAME.registerComponent('over-writing',{
           if(over_write_start==1){
             content += "raycaster intersected overwritten: time: "+Date.now()+"\n";
             var cur_scene = document.querySelector('a-scene');
+            console.log(cur_el);
 
 
             var dist_el = document.createElement('a-entity');
@@ -723,7 +724,7 @@ AFRAME.registerComponent('game-manager', {
 			rand = Math.floor(Math.random() * positions.length);
 		}
 		
-		// el.setAttribute('class','raycastable');
+		el.setAttribute('class','clickable');
 		el.setAttribute('armadillo','');
     el.setAttribute('id','arm'+i);
     el.setAttribute('num',i);
