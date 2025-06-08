@@ -1,6 +1,6 @@
 App applying [DoS through Overidding](https://chandms.github.io/files/2025_mobisys_demo.pdf)
 
-[Access the app](https://chandms.github.io/demo_app_webxr_other/home_2.html)
+[Access the app](https://chandms.github.io/demo_app_webxr_other/gaze_based.html)
 
 # Credits
 
