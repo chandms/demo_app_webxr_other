@@ -1048,6 +1048,18 @@ AFRAME.registerComponent('timer', {
 	}
 });
 
+AFRAME.registerComponent('reload-comp',{
+
+  init: function(){
+    var scene = document.querySelector('a-scene');
+    scene.addEventListener('enter-vr', function(ev, target){
+      console.log('in vr');
+      window.location.reload();
+    });
+  }
+
+});
+
 
 
 
