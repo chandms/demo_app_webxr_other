@@ -942,7 +942,9 @@ AFRAME.registerComponent('timer', {
       cur_scene.addEventListener('enter-vr',function(ev, target){
         var res_comp = document.querySelector('#restart');
         console.log('restrat emitted');
-        res_comp.emit('click');
+        if(res_comp){
+          res_comp.emit('click');
+        }
       });
       
       if(first==0){
