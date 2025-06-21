@@ -361,7 +361,7 @@ AFRAME.registerComponent('log-data',{
          console.log("Exit VR");
       
          content+="Exit VR: time: "+Date.now()+"\n";
-         downloadFile(content);
+         //downloadFile(content);
 
       });
     
@@ -479,13 +479,13 @@ AFRAME.registerComponent('add-comp', {
     // changed the visibility
 
     var leftController = document.createElement("a-entity");
-    leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: false"></a-entity>';
+    leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: true"></a-entity>';
     document.querySelector("a-scene").appendChild(leftController);
     
     
     
     var rightController = document.createElement("a-entity");
-    rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: false;" raycaster="objects: .raycastable"  ></a-entity>';
+    rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: true;" raycaster="objects: .raycastable"  ></a-entity>';
     document.querySelector("a-scene").appendChild(rightController);
     
     
