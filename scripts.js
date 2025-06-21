@@ -939,13 +939,13 @@ AFRAME.registerComponent('timer', {
       restart_comp.setAttribute("position","0.302 0.5 -6");
       
       
-      cur_scene.addEventListener('enter-vr',function(ev, target){
-        var res_comp = document.querySelector('#restart');
-        console.log('restrat emitted');
-        if(res_comp){
-          res_comp.emit('click');
-        }
-      });
+      // cur_scene.addEventListener('enter-vr',function(ev, target){
+      //   var res_comp = document.querySelector('#restart');
+      //   console.log('restrat emitted');
+      //   if(res_comp){
+      //     res_comp.emit('click');
+      //   }
+      // });
       
       if(first==0){
           const queryString = window.location.search;
@@ -1053,9 +1053,15 @@ AFRAME.registerComponent('reload-comp',{
   init: function(){
     var scene = document.querySelector('a-scene');
     scene.addEventListener('enter-vr', function(ev, target){
-      console.log('in vr');
-      window.location.reload();
+    console.log('in vr');
+    window.location.reload();
+    var res_comp = document.querySelector('#restart');
+      console.log('restrat emitted');
+      if(res_comp){
+        res_comp.emit('click');
+      }
     });
+    first = 1;
   }
 
 });
