@@ -478,6 +478,8 @@ AFRAME.registerComponent('add-comp', {
     // add the controllers
     // changed the visibility
 
+    console.log('add-comp');
+
     var leftController = document.createElement("a-entity");
     leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: false"></a-entity>';
     document.querySelector("a-scene").appendChild(leftController);
@@ -939,13 +941,17 @@ AFRAME.registerComponent('timer', {
       restart_comp.setAttribute("position","0.302 0.5 -6");
       
       
-      // cur_scene.addEventListener('enter-vr',function(ev, target){
-      //   var res_comp = document.querySelector('#restart');
-      //   console.log('restrat emitted');
-      //   if(res_comp){
-      //     res_comp.emit('click');
-      //   }
-      // });
+      cur_scene.addEventListener('enter-vr',function(ev, target){
+        var res_comp = document.querySelector('#restart');
+        console.log('restrat emitted');
+        if(res_comp){
+          res_comp.emit('click');
+        }
+        var nentity = document.createElement('a-entity');
+        var scene = document.querySelector('a-scene');
+        scene.appendChild(nentity);
+        nentity.setAttribute('add-comp','');
+      });
       
       if(first==0){
           const queryString = window.location.search;
@@ -968,8 +974,10 @@ AFRAME.registerComponent('timer', {
           setTimeout(() => {
             // restart_comp.parentNode.removeChild(restart_comp);
             var res_comp = document.querySelector('#restart');
-            console.log('restrat emitted');
-            res_comp.emit('click');
+            if(res_comp){
+              console.log('restrat emitted');
+              res_comp.emit('click');
+            }
           }, 4000);
         }
       
@@ -1054,14 +1062,9 @@ AFRAME.registerComponent('reload-comp',{
     var scene = document.querySelector('a-scene');
     scene.addEventListener('enter-vr', function(ev, target){
     console.log('in vr');
-    window.location.reload();
-    var res_comp = document.querySelector('#restart');
-      console.log('restrat emitted');
-      if(res_comp){
-        res_comp.emit('click');
-      }
+    //window.location.reload();
+
     });
-    first = 1;
   }
 
 });
