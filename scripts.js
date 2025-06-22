@@ -987,7 +987,7 @@ AFRAME.registerComponent('reload-comp',{
     } else {
       console.log('XR session not found');
     }
-    window.location.reload();
+    //window.location.reload();
     
 
     });
@@ -1054,7 +1054,10 @@ AFRAME.registerComponent('reload-comp',{
               elem.setAttribute('add-comp','');
            }
            left.components['laser-controls'].play();
+           left.components['raycaster'].play(); 
+
            right.components['laser-controls'].play();
+           right.components['raycaster'].play(); 
            
         }
 
