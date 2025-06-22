@@ -481,13 +481,13 @@ AFRAME.registerComponent('add-comp', {
     console.log('add-comp');
 
     var leftController = document.createElement("a-entity");
-    leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: true"></a-entity>';
+    leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: false"></a-entity>';
     document.querySelector("a-scene").appendChild(leftController);
     
     
     
     var rightController = document.createElement("a-entity");
-    rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: true;" raycaster="objects: .raycastable"  ></a-entity>';
+    rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: false;" raycaster="objects: .raycastable"  ></a-entity>';
     document.querySelector("a-scene").appendChild(rightController);
     
     
@@ -879,9 +879,19 @@ AFRAME.registerComponent('timer', {
 			el.setAttribute("value", "Finished!");
       
       var cur_scene = document.querySelector('a-scene');
+      var restart_comp = document.createElement('a-entity');
+      
+      cur_scene.appendChild(restart_comp);
       
       
        if(first==0){
+        // var warn_comp = document.createElement('a-text');
+        // warn_comp.setAttribute("value","Click on VR to play again");
+        // warn_comp.setAttribute("position","-1.5 3.2 -2.450");
+        // warn_comp.setAttribute("color","orange");
+        // warn_comp.setAttribute("id","warn_comp");
+        // warn_comp.setAttribute("scale","2 2 2");
+        // warn_comp.setAttribute('distraction-log','');
          
          
         var warn_comp = document.createElement('a-image');
@@ -904,7 +914,40 @@ AFRAME.registerComponent('timer', {
         cur_scene.appendChild(warn_comp_2);
         
       }
-    
+      
+      
+      restart_comp.setAttribute('geometry',{
+        primitive: 'box',
+        height: 0.5,
+        width: 0.5,
+        depth: 0.5
+      });
+      
+
+      restart_comp.setAttribute('material','src','#restimg');
+      
+      var restart_text_comp = document.createElement('a-text');
+      
+      restart_comp.appendChild(restart_text_comp);
+      
+      restart_text_comp.setAttribute('text',{
+        value:'Restart',
+        width: 4,
+        
+      });
+      restart_text_comp.setAttribute('position', '-0.3 0.7 0.2');
+      restart_text_comp.setAttribute("id","restart-text");
+      restart_comp.setAttribute("id","restart");
+      restart_comp.setAttribute("position","0.302 0.5 -6");
+      
+      
+      cur_scene.addEventListener('enter-vr',function(ev, target){
+        var res_comp = document.querySelector('#restart');
+        console.log('restrat emitted');
+        if(res_comp){
+          res_comp.emit('click');
+        }
+      });
       
       if(first==0){
           const queryString = window.location.search;
@@ -915,50 +958,87 @@ AFRAME.registerComponent('timer', {
             score_param = 0;
         
           document.querySelector('#score').setAttribute("value","Score: "+score_param);
+
+          first = 1;
           
         }
+        else{
 
-        if(first==1){
-          
-          document.querySelector('a-scene').querySelector('#timer').setAttribute("timer", "false");
-        
-          
-          var warn_comp =document.querySelector('#warn_comp');
-          var warn_comp_2 =document.querySelector('#warn_comp_2');
-          console.log('here warn');
-
-          if(warn_comp){
-            content+= "Ad Removed: obj: "+warn_comp.id+" time: "+Date.now()+"\n";
-            warn_comp.parentNode.removeChild(warn_comp);
-          }
-          
-          if(warn_comp_2){
-            warn_comp_2.parentNode.removeChild(warn_comp_2);
-          }
-
-          var cur_timer = document.querySelector('#timer');
-          cur_timer.setAttribute("value","0:20");
-          timer = startTimerValue;
-          
-          gameStarted = true;
-        
-        content +="Game Started "+Date.now()+"\n";
-
-        document.querySelector('a-scene').querySelector('#timer').setAttribute("timer", "true");
-        
-
-          var msg = document.querySelector('#msg');
-          msg.setAttribute('visible', true);
+          var restart_comp = document.querySelector('#restart');
+          // restart_comp.setAttribute('visible', true);
           // Hide after duration
           setTimeout(() => {
-            msg.setAttribute('visible', false);
-          }, 2000);
-
-
-          document.querySelector('#score').setAttribute("value","Score: 0");
-          score=0;
+            // restart_comp.parentNode.removeChild(restart_comp);
+            var res_comp = document.querySelector('#restart');
+            if(res_comp){
+              console.log('restrat emitted');
+              res_comp.emit('click');
+            }
+          }, 4000);
+        }
+      
+      
+      restart_comp.addEventListener('click', function(ev, target){
+        console.log('restart clicked');
+        
+        
+//         var restart_comp = document.querySelector('#restart');
+        
+//         if(restart_comp){
           
-      }
+        document.querySelector('a-scene').querySelector('#timer').setAttribute("timer", "false");
+        var restart_text_comp = document.querySelector('#restart-text');
+        
+        restart_text_comp.parentNode.removeChild(restart_text_comp);
+
+        restart_comp.parentNode.removeChild(restart_comp);
+        
+        var warn_comp =document.querySelector('#warn_comp');
+        var warn_comp_2 =document.querySelector('#warn_comp_2');
+
+        if(warn_comp){
+          content+= "Ad Removed: obj: "+warn_comp.id+" time: "+Date.now()+"\n";
+          warn_comp.parentNode.removeChild(warn_comp);
+        }
+         
+        if(warn_comp_2){
+          warn_comp_2.parentNode.removeChild(warn_comp_2);
+        }
+
+        var cur_timer = document.querySelector('#timer');
+        cur_timer.setAttribute("value","0:20");
+        timer = startTimerValue;
+        
+        gameStarted = true;
+      
+       content +="Game Started "+Date.now()+"\n";
+
+       document.querySelector('a-scene').querySelector('#timer').setAttribute("timer", "true");
+			
+
+      
+        if(first!=0){
+
+        var msg = document.querySelector('#msg');
+        msg.setAttribute('visible', true);
+        // Hide after duration
+        setTimeout(() => {
+          msg.setAttribute('visible', false);
+        }, 2000);
+
+        }
+        else{
+          var msg = document.querySelector('#msg');
+          msg.setAttribute('class', 'raycastable');
+        }
+
+
+        document.querySelector('#score').setAttribute("value","Score: 0");
+        score=0;
+          
+
+        
+      });
                         
 
       
@@ -972,6 +1052,14 @@ AFRAME.registerComponent('timer', {
 	}
 });
 
+AFRAME.registerComponent('reload-listener', {
+    init: function () {
+      window.addEventListener('beforeunload', (event) => {
+        console.log('A-Frame: Page is reloading or closing.');
+      });
+    }
+  });
+
 AFRAME.registerComponent('reload-comp',{
 
   init: function(){
@@ -981,54 +1069,6 @@ AFRAME.registerComponent('reload-comp',{
     window.location.reload();
 
     });
-  },
-
-  tick: function(){
-    var scene = document.querySelector('a-scene');
-
-    if (scene.is('vr-mode')) {
-
-      if(first==0){
-          first = 1;
-          document.querySelector('a-scene').querySelector('#timer').setAttribute("timer", "false");
-          var warn_comp =document.querySelector('#warn_comp');
-          var warn_comp_2 =document.querySelector('#warn_comp_2');
-          console.log('here warn');
-
-          if(warn_comp){
-            content+= "Ad Removed: obj: "+warn_comp.id+" time: "+Date.now()+"\n";
-            warn_comp.parentNode.removeChild(warn_comp);
-          }
-          
-          if(warn_comp_2){
-            warn_comp_2.parentNode.removeChild(warn_comp_2);
-          }
-
-          var cur_timer = document.querySelector('#timer');
-          cur_timer.setAttribute("value","0:20");
-          timer = startTimerValue;
-          
-          gameStarted = true;
-        
-          content +="Game Started "+Date.now()+"\n";
-          document.querySelector('a-scene').querySelector('#timer').setAttribute("timer", "true");
-
-          var msg = document.querySelector('#msg');
-          msg.setAttribute('visible', true);
-          // Hide after duration
-          setTimeout(() => {
-            msg.setAttribute('visible', false);
-          }, 2000);
-
-
-          document.querySelector('#score').setAttribute("value","Score: 0");
-          score=0;
-        }
-        else{
-          first = 1;
-        }
-    }
-
   }
 
 });
