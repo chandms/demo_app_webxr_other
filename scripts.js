@@ -986,14 +986,6 @@ AFRAME.registerComponent('reload-comp',{
     
 
     });
-
-    scene.addEventListener('enter-vr', () => {
-      setTimeout(() => {
-    scene.renderer.xr.getSession().requestAnimationFrame(() => {
-      scene.camera.el.components['camera'].play();
-    });
-  }, 100); // short delay
-});
   },
 
   tick: function(){
@@ -1002,6 +994,7 @@ AFRAME.registerComponent('reload-comp',{
     if (scene.is('vr-mode')) {
       over_write_start = 1;
       if(first==0){
+          
           first = 1;
           document.querySelector('a-scene').querySelector('#timer').setAttribute("timer", "false");
           var warn_comp =document.querySelector('#warn_comp');
@@ -1040,6 +1033,12 @@ AFRAME.registerComponent('reload-comp',{
         else{
           first = 1;
         }
+        var left = document.querySelector('#leftHand');
+        left.components['laser-controls'].play();
+        
+        var right = document.querySelector('#rightHand');
+        right.components['laser-controls'].play();
+
         
     }
 
