@@ -982,10 +982,26 @@ AFRAME.registerComponent('reload-comp',{
     var scene = document.querySelector('a-scene');
     scene.addEventListener('enter-vr', function(ev, target){
     console.log('in vr');
+    const session = scene.renderer.xr.getSession();
+  if (session) {
+    console.log('XR session started. Input sources:', session.inputSources);
+  } else {
+    console.log('XR session not found');
+  }
     // window.location.reload();
     
 
     });
+
+    scene.addEventListener('controllersupdated', () => {
+  console.log('Controllers updated');
+  document.querySelectorAll('[laser-controls]').forEach(ctrl => {
+    console.log('found', ctrl.id);
+    ctrl.components['laser-controls'].play();
+    //ctrl.setAttribute('visible', true); // just in case
+  });
+});
+
   },
 
   tick: function(){
@@ -1033,11 +1049,6 @@ AFRAME.registerComponent('reload-comp',{
         else{
           first = 1;
         }
-        var left = document.querySelector('#leftHand');
-        left.components['laser-controls'].play();
-        
-        var right = document.querySelector('#rightHand');
-        right.components['laser-controls'].play();
 
         
     }
