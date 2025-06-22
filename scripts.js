@@ -988,7 +988,7 @@ AFRAME.registerComponent('reload-comp',{
   if (session) {
     setTimeout(() => {
       session.requestAnimationFrame(() => {
-        var elem = document.querySelector('a-entity');
+        var elem = document.createElement('a-entity');
         scene.appendChild(elem);
         elem.setAttribute('add-comp', '');
 
@@ -1047,27 +1047,7 @@ AFRAME.registerComponent('reload-comp',{
         }
         else{
           first = 1;
-          var elem = document.querySelector('#trg');
-
-          if(!elem){
-           elem = document.createElement('a-entity');
-           elem.setAttribute('id','trg');
-           scene.appendChild(elem);
-          }
-           
-
-           var left = document.querySelector('#leftHand');
-           var right = document.querySelector('#rightHand');
-
-           if(!left || !right){
-              elem.setAttribute('add-comp','');
-           }
-           left.components['laser-controls'].play();
-           left.components['raycaster'].play(); 
-
-           right.components['laser-controls'].play();
-           right.components['raycaster'].play(); 
-           
+        
         }
 
         
