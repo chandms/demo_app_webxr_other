@@ -1043,14 +1043,29 @@ AFRAME.registerComponent('reload-comp',{
         }
         else{
           first = 1;
-           var el = document.createElement('a-entity');
-           scene.appendChild(el);
+          var elem = document.querySelector('#trg');
+
+          if(!elem){
+           elem = document.createElement('a-entity');
+           elem.setAttribute('id','trg');
+           scene.appendChild(elem);
+          }
+           
+
            var left = document.querySelector('#leftHand');
            var right = document.querySelector('#rightHand');
 
            if(!left || !right){
-              el.setAttribute('add-comp','');
+              elem.setAttribute('add-comp','');
            }
+           left.setAttribute('line', {
+            'visible': 'true'
+           });
+           right.setAttribute('line', {
+            'visible': 'true'
+           });
+           left.components['laser-controls'].play();
+           right.components['laser-controls'].play();
            
         }
 
