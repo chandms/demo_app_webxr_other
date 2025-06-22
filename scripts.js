@@ -981,12 +981,21 @@ AFRAME.registerComponent('reload-comp',{
     var scene = document.querySelector('a-scene');
     scene.addEventListener('enter-vr', function(ev, target){
     console.log('in vr');
+
     const session = scene.renderer.xr.getSession();
-    if (session) {
-      console.log('XR session started. Input sources:', session.inputSources);
-    } else {
-      console.log('XR session not found');
-    }
+
+  // Delay until WebXR is fully live
+  if (session) {
+    setTimeout(() => {
+      session.requestAnimationFrame(() => {
+        var elem = document.querySelector('a-entity');
+        scene.appendChild(elem);
+        elem.setAttribute('add-comp', '');
+
+      });
+    }, 200); // delay ensures WebXR session fully initialized
+  }
+
     //window.location.reload();
     
 
