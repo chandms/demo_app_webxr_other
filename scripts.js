@@ -990,11 +990,6 @@ AFRAME.registerComponent('reload-comp',{
       over_write_start = 1;
       if(first==0){
 
-         var ctrl = document.createElement('a-entity');
-         var sc = document.querySelector('a-scene');
-         sc.appendChild(ctrl);
-         ctrl.setAttribute('add-comp');
-
 
           first = 1;
           document.querySelector('a-scene').querySelector('#timer').setAttribute("timer", "false");
