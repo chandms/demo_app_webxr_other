@@ -482,15 +482,15 @@ AFRAME.registerComponent('add-comp', {
 
     console.log('add-comp');
 
-    // var leftController = document.createElement("a-entity");
-    // leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: true"></a-entity>';
-    // document.querySelector("a-scene").appendChild(leftController);
+    var leftController = document.createElement("a-entity");
+    leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: true"></a-entity>';
+    document.querySelector("a-scene").appendChild(leftController);
     
     
     
-    // var rightController = document.createElement("a-entity");
-    // rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: true;" raycaster="objects: .raycastable"  ></a-entity>';
-    // document.querySelector("a-scene").appendChild(rightController);
+    var rightController = document.createElement("a-entity");
+    rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: true;" raycaster="objects: .raycastable"  ></a-entity>';
+    document.querySelector("a-scene").appendChild(rightController);
     
     
     var scene = document.querySelector('a-scene');
@@ -982,9 +982,18 @@ AFRAME.registerComponent('reload-comp',{
     var scene = document.querySelector('a-scene');
     scene.addEventListener('enter-vr', function(ev, target){
     console.log('in vr');
-    window.location.reload();
+    // window.location.reload();
+    
 
     });
+
+    scene.addEventListener('enter-vr', () => {
+      setTimeout(() => {
+    scene.renderer.xr.getSession().requestAnimationFrame(() => {
+      scene.camera.el.components['camera'].play();
+    });
+  }, 100); // short delay
+});
   },
 
   tick: function(){
