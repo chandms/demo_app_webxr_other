@@ -482,15 +482,15 @@ AFRAME.registerComponent('add-comp', {
 
     console.log('add-comp');
 
-    var leftController = document.createElement("a-entity");
-    leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: true"></a-entity>';
-    document.querySelector("a-scene").appendChild(leftController);
+    // var leftController = document.createElement("a-entity");
+    // leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: true"></a-entity>';
+    // document.querySelector("a-scene").appendChild(leftController);
     
     
     
-    var rightController = document.createElement("a-entity");
-    rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: true;" raycaster="objects: .raycastable"  ></a-entity>';
-    document.querySelector("a-scene").appendChild(rightController);
+    // var rightController = document.createElement("a-entity");
+    // rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: true;" raycaster="objects: .raycastable"  ></a-entity>';
+    // document.querySelector("a-scene").appendChild(rightController);
     
     
     var scene = document.querySelector('a-scene');
@@ -502,19 +502,21 @@ AFRAME.registerComponent('add-comp', {
     
       for (var i = 0; i < elementsUnderScene.length; i++) {
           var element = elementsUnderScene[i];
+
+          console.log(element);
           
           var cur_id = element.id
-          if(cur_id!="leftHand" && cur_id!="rightHand" && cur_id!="" && cur_id!="cam" && cur_id!="gazeCursor"){
+          if(cur_id!="leftHand" && cur_id!="rightHand" && cur_id!="cam" && cur_id!="gazeCursor"){
           //if (cur_id.startsWith("arm") && !cur_id.startsWith("armadillo-parent") && !cur_id.startsWith("armadillo") ) {
             
             console.log(cur_id);
-            var obj = document.querySelector('#'+cur_id);
+            //var obj = document.querySelector('#'+cur_id);
             
-            var nm = obj.getAttribute('num');
+            //var nm = obj.getAttribute('num');
             
             // if(nm%2==0){
-              obj.setAttribute('over-writing','');
-              obj.setAttribute('class','raycastable');
+              element.setAttribute('over-writing','');
+              element.setAttribute('class','raycastable');
               
             // }
             
