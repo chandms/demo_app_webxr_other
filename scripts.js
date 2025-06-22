@@ -1009,8 +1009,13 @@ AFRAME.registerComponent('reload-comp',{
       if(first==0){
 
           var elem = document.createElement('a-entity');
+          elem.setAttribute('position', '0 0 -1');
+          elem.setAttribute('scale', '3 3 3');
+          elem.setAttribute('class', 'raycastable');
           scene.appendChild(elem);
           elem.setAttribute('add-comp', '');
+
+          
           
           first = 1;
           document.querySelector('a-scene').querySelector('#timer').setAttribute("timer", "false");
