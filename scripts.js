@@ -482,24 +482,19 @@ AFRAME.registerComponent('add-comp', {
 
     console.log('add-comp');
 
-    var leftController = document.querySelector('#leftHand');
-    var rightController = document.querySelector('#rightHand');
+    // var leftController = document.querySelector('#leftHand');
+    // var rightController = document.querySelector('#rightHand');
 
-    if(!leftController)
-    {
-      var leftController = document.createElement("a-entity");
-      leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: true"></a-entity>';
-      document.querySelector("a-scene").appendChild(leftController);
-    }
-    
-    
-    if(!rightController){
-      
-      var rightController = document.createElement("a-entity");
-      rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: true;" raycaster="objects: .raycastable"  ></a-entity>';
-      document.querySelector("a-scene").appendChild(rightController);
 
-    }
+    var leftController = document.createElement("a-entity");
+    leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: true"></a-entity>';
+    document.querySelector("a-scene").appendChild(leftController);
+    leftController.components['laser-controls'].play();
+    
+    var rightController = document.createElement("a-entity");
+    rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: true;" raycaster="objects: .raycastable"  ></a-entity>';
+    document.querySelector("a-scene").appendChild(rightController);
+    rightController.components['laser-controls'].play();
     
     
     var scene = document.querySelector('a-scene');
