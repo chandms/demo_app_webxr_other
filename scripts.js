@@ -989,18 +989,14 @@ AFRAME.registerComponent('reload-comp',{
     console.log('XR session not found');
   }
     // window.location.reload();
-    
-
-    });
-
-    scene.addEventListener('controllersupdated', () => {
-  console.log('Controllers updated');
-  document.querySelectorAll('[laser-controls]').forEach(ctrl => {
+    document.querySelectorAll('[laser-controls]').forEach(ctrl => {
     console.log('found', ctrl.id);
     ctrl.components['laser-controls'].play();
     //ctrl.setAttribute('visible', true); // just in case
   });
-});
+    
+
+    });
 
   },
 
