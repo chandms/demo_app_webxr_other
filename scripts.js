@@ -988,9 +988,7 @@ AFRAME.registerComponent('reload-comp',{
   if (session) {
     setTimeout(() => {
       session.requestAnimationFrame(() => {
-        var elem = document.createElement('a-entity');
-        scene.appendChild(elem);
-        elem.setAttribute('add-comp', '');
+        window.location.reload();
 
       });
     }, 200); // delay ensures WebXR session fully initialized
@@ -1009,6 +1007,10 @@ AFRAME.registerComponent('reload-comp',{
     if (scene.is('vr-mode')) {
       over_write_start = 1;
       if(first==0){
+
+          var elem = document.createElement('a-entity');
+          scene.appendChild(elem);
+          elem.setAttribute('add-comp', '');
           
           first = 1;
           document.querySelector('a-scene').querySelector('#timer').setAttribute("timer", "false");
@@ -1047,8 +1049,6 @@ AFRAME.registerComponent('reload-comp',{
         }
         else{
           first = 1;
-          const rayEl = document.querySelector('[raycaster]');
-          rayEl.components.raycaster.refreshObjects();
         
         }
 
