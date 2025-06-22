@@ -983,17 +983,14 @@ AFRAME.registerComponent('reload-comp',{
     scene.addEventListener('enter-vr', function(ev, target){
     console.log('in vr');
     const session = scene.renderer.xr.getSession();
-  if (session) {
-    console.log('XR session started. Input sources:', session.inputSources);
-  } else {
-    console.log('XR session not found');
-  }
-    // window.location.reload();
-    document.querySelectorAll('[laser-controls]').forEach(ctrl => {
-    console.log('found', ctrl.id);
-    ctrl.components['laser-controls'].play();
-    //ctrl.setAttribute('visible', true); // just in case
-  });
+    if (session) {
+      console.log('XR session started. Input sources:', session.inputSources);
+    } else {
+      console.log('XR session not found');
+    }
+    var el = document.createElement('a-entity');
+    scene.appendChild(el);
+    el.setAttribute('add-comp','');
     
 
     });
