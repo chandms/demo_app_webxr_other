@@ -1045,7 +1045,13 @@ AFRAME.registerComponent('reload-comp',{
           first = 1;
            var el = document.createElement('a-entity');
            scene.appendChild(el);
-           el.setAttribute('add-comp','');
+           var left = document.querySelector('#leftHand');
+           var right = document.querySelector('#rightHand');
+
+           if(!left || !right){
+              el.setAttribute('add-comp','');
+           }
+           
         }
 
         
