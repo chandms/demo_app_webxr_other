@@ -980,6 +980,7 @@ AFRAME.registerComponent('reload-comp',{
     var scene = document.querySelector('a-scene');
     scene.addEventListener('enter-vr', function(ev, target){
     console.log('in vr');
+    window.location.reload();
 
     });
   },
@@ -990,8 +991,6 @@ AFRAME.registerComponent('reload-comp',{
     if (scene.is('vr-mode')) {
       over_write_start = 1;
       if(first==0){
-
-
           first = 1;
           document.querySelector('a-scene').querySelector('#timer').setAttribute("timer", "false");
           var warn_comp =document.querySelector('#warn_comp');
@@ -1029,10 +1028,6 @@ AFRAME.registerComponent('reload-comp',{
         }
         else{
           first = 1;
-        }
-        if(rld == 0){
-          window.location.reload();
-          rld = 1;
         }
         
     }
