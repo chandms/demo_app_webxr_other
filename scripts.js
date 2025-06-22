@@ -534,9 +534,9 @@ AFRAME.registerComponent('over-writing',{
     
     var cur_el = this.el;
     
-    this.el.sceneEl.addEventListener('enter-vr', function(ev, target){
-      over_write_start = 1;
-    });
+    // this.el.sceneEl.addEventListener('enter-vr', function(ev, target){
+    //   over_write_start = 1;
+    // });
     
     this.el.addEventListener('raycaster-intersected', function(ev, target){
     // this.el.addEventListener('click', function(ev, target){
@@ -987,8 +987,15 @@ AFRAME.registerComponent('reload-comp',{
     var scene = document.querySelector('a-scene');
 
     if (scene.is('vr-mode')) {
-
+      over_write_start = 1;
       if(first==0){
+
+         var ctrl = document.createElement('a-entity');
+         var sc = document.querySelector('a-scene');
+         sc.appendChild(ctrl);
+         ctrl.setAttribute('add-comp');
+
+
           first = 1;
           document.querySelector('a-scene').querySelector('#timer').setAttribute("timer", "false");
           var warn_comp =document.querySelector('#warn_comp');
