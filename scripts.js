@@ -482,15 +482,24 @@ AFRAME.registerComponent('add-comp', {
 
     console.log('add-comp');
 
-    var leftController = document.createElement("a-entity");
-    leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: true"></a-entity>';
-    document.querySelector("a-scene").appendChild(leftController);
+    var leftController = document.querySelector('#leftHand');
+    var rightController = document.querySelector('#rightHand');
+
+    if(!leftController)
+    {
+      var leftController = document.createElement("a-entity");
+      leftController.innerHTML = '<a-entity id="leftHand" laser-controls="hand: left;"  raycaster="objects: .raycastable"  line="visible: true"></a-entity>';
+      document.querySelector("a-scene").appendChild(leftController);
+    }
     
     
-    
-    var rightController = document.createElement("a-entity");
-    rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: true;" raycaster="objects: .raycastable"  ></a-entity>';
-    document.querySelector("a-scene").appendChild(rightController);
+    if(!rightController){
+      
+      var rightController = document.createElement("a-entity");
+      rightController.innerHTML = '<a-entity id="rightHand" laser-controls="hand: right;" line="color: #118A7E; visible: true;" raycaster="objects: .raycastable"  ></a-entity>';
+      document.querySelector("a-scene").appendChild(rightController);
+
+    }
     
     
     var scene = document.querySelector('a-scene');
@@ -988,9 +997,7 @@ AFRAME.registerComponent('reload-comp',{
     } else {
       console.log('XR session not found');
     }
-    var el = document.createElement('a-entity');
-    scene.appendChild(el);
-    el.setAttribute('add-comp','');
+    window.location.reload();
     
 
     });
@@ -1041,6 +1048,9 @@ AFRAME.registerComponent('reload-comp',{
         }
         else{
           first = 1;
+           var el = document.createElement('a-entity');
+           scene.appendChild(el);
+           el.setAttribute('add-comp','');
         }
 
         
