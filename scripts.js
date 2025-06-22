@@ -1047,6 +1047,8 @@ AFRAME.registerComponent('reload-comp',{
         }
         else{
           first = 1;
+          const rayEl = document.querySelector('[raycaster]');
+          rayEl.components.raycaster.refreshObjects();
         
         }
 
