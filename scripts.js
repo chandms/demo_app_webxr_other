@@ -35,6 +35,8 @@ var idlePosition = "300 300 300";
 
 var spawnedAtPosition = [];
 
+rld = 0;
+
 for(var i = 0; i < positions.length; i++){
 	spawnedAtPosition.push(false); //Array(positions.length).fill(false);
 }
@@ -978,7 +980,6 @@ AFRAME.registerComponent('reload-comp',{
     var scene = document.querySelector('a-scene');
     scene.addEventListener('enter-vr', function(ev, target){
     console.log('in vr');
-    window.location.reload();
 
     });
   },
@@ -1029,6 +1030,11 @@ AFRAME.registerComponent('reload-comp',{
         else{
           first = 1;
         }
+        if(rld == 0){
+          window.location.reload();
+          rld = 1;
+        }
+        
     }
 
   }
