@@ -62,414 +62,6 @@ var over_write_start = 0;
 
 /** Components **/
 
-AFRAME.registerComponent('log-auth',{
-  init: function(){
-    
-    
-    var el = this.el;
-    
-    el.addEventListener('raycaster-intersected', function(ev, target){
-      
-      content+= "Auth obj visited: obj: "+el.id+" cursor: "+JSON.stringify(ev.detail.el.id)+" time: "+Date.now()+"\n";
-    
-    });
-    
-    el.addEventListener('click', function(ev, target){
-      
-      content+= "Auth obj click: obj: "+el.id+" cursor: "+JSON.stringify(ev.detail.cursorEl.id)+" time: "+Date.now()+"\n";
-      
-    });
-    
-    el.addEventListener('raycaster-intersected-cleared', function(ev, target){
-      
-        content += "Raycaster Cleared: obj: "+el.id+" cursor: "+JSON.stringify(ev.detail.el.id)+" time: "+Date.now()+"\n";
-      
-    });
-     
-  }
-});
-
-
-
-
-AFRAME.registerComponent('scan-elements',{
-  init: function(){
-    
-     var scene = document.querySelector('a-scene');
-    
-     scene.addEventListener('enter-vr', function(ev, target){
-       
-       content += "Entered VR: time: "+Date.now()+" \n";
-       
-       
-     });
-  },
-  tick : function(){
-    
-    var scene = document.querySelector('a-scene');
-    
-     var elementsUnderScene = scene.getElementsByTagName('*');
-
-   
-      for (var i = 0; i < elementsUnderScene.length; i++) {
-          var element = elementsUnderScene[i];
-          
-          var cur_id = element.id
-          
-
-          
-          // any element other than the cursors, camera, empty
-          // add more what you want to ignore
-            if(cur_id!="leftHand" && 
-               cur_id!="rightHand" && 
-               cur_id!="" && 
-               cur_id!="cam" && 
-               cur_id!="gazeCursor" &&
-               cur_id!="armadillo-parent" &&
-               cur_id!="ad" &&
-               cur_id!="ad-cover"){
-
-               //console.log("obj",cur_id);
-
-              var obj = document.querySelector('#'+cur_id);
-
-
-
-              if(!obj.hasAttribute('log-auth')){
-                
-                // console.log('hii', obj);
-                content+="Auth obj log added: obj: "+cur_id+" time: "+Date.now()+"\n";
-                obj.setAttribute('log-auth','');
-              }
-
-
-
-            }
-            
-
-        
-        
-      }
-      //console.log('size', log_obj_map.size);
-    
-  }
-});
-
-
-AFRAME.registerComponent('distraction-log',{
-  init: function(){
-    
-    var el = this.el;
-    
-    
-    content+= "Ad Created: obj: "+el.id+" time: "+Date.now()+"\n";
-    
-    
-    var cursor = document.querySelector('#gazeCursor');
-    var target_pos = new THREE.Vector3(); 
-    cursor.object3D.getWorldPosition( target_pos );
-
-    content += ("ad position: "+JSON.stringify(el.getAttribute('position'))+" time: "+Date.now()+"\n");
-    content += ("gaze position: "+JSON.stringify(target_pos)+" time: "+Date.now()+"\n");
-    
-    this.el.addEventListener('click', function(ev, target){
-      //console.log('received click', ev.detail);
-      
-   
-        content += "Synthetic Click: obj: "+el.id+" cursor: "+JSON.stringify(ev.detail.cursorEl.id)+" time: "+Date.now()+"\n";
-      
-    });
-    
-    
-    this.el.addEventListener('raycaster-intersected', function(ev, target){
-      
-
-      
-        content += "Synthetic Visit: obj: "+el.id+" cursor: "+JSON.stringify(ev.detail.el.id)+" time: "+Date.now()+"\n";
-      
-      
-    });
-    
-    
-    
-     this.el.addEventListener('raycaster-intersected-cleared', function(ev, target){
-      
-      
-        content += "Raycaster Cleared: obj: "+el.id+" cursor: "+JSON.stringify(ev.detail.el.id)+" time: "+Date.now()+"\n";
-      
-    });
-    
-    
-    this.el.addEventListener('componentchanged', function(ev, target){
-      
-      if(ev.detail.name=='position'){
-        
-          var cursor = document.querySelector('#gazeCursor');
-          var target_pos = new THREE.Vector3(); 
-          cursor.object3D.getWorldPosition( target_pos );
-
-          content += ("ad position: "+JSON.stringify(el.getAttribute('position'))+" time: "+Date.now()+"\n");
-          content += ("gaze position: "+JSON.stringify(target_pos)+" time: "+Date.now()+"\n");
-        
-      }
-    });
-    
-    
-    
-
-    
-  },
-  
-});
-
-
-AFRAME.registerComponent('log-cam',{
-  
-  init: function(){
-    
-    this.camPos = new THREE.Vector3();
-    
-    // this.camPos.setFromMatrixPosition(cam.object3D.matrixWorld);
-    // cam.object3D.getWorldPosition(this.camPos);
-    
-    
-    this.worldQuaternion = new THREE.Quaternion();
-    this.worldDirection = new THREE.Vector3();
-    this.gaze_pos = new THREE.Vector3(); 
-
-    
-    // this.leftCur = document.querySelector('#leftHand');
-    // this.rightCur = document.querySelector('#rightHand');
-    this.gazeCur = document.querySelector('#gazeCursor');
-    this.cam = document.querySelector('#cam');
-    
-    
-
-    
-    this.gazeCur.addEventListener('raycaster-intersection', evt => {
-    
-    
-      var intersected_els = evt.detail.intersections;
-          
-      if(intersected_els.length>0){
-        
-        this.get_cam_gaze();
-        
-        
-      }
-      
-    });
-    this.gazeCur.addEventListener('click', evt => {
-        this.get_cam_gaze();
-      
-    });
-    
-//     this.leftCur.addEventListener('raycaster-intersection', evt => {
-    
-    
-//       var intersected_els = evt.detail.intersections;
-          
-//       if(intersected_els.length>0){
-        
-//         this.get_cam_gaze();
-        
-        
-//       }
-      
-//     });
-//     this.leftCur.addEventListener('click', evt => {
-//         this.get_cam_gaze();
-      
-//     });
-    
-//     this.rightCur.addEventListener('raycaster-intersection', evt => {
-    
-    
-//       var intersected_els = evt.detail.intersections;
-          
-//       if(intersected_els.length>0){
-        
-//         this.get_cam_gaze();
-        
-        
-//       }
-      
-//     });
-    
-//     this.rightCur.addEventListener('click', evt => {
-//         this.get_cam_gaze();
-      
-//     });
-  },
-  
-  get_cam_gaze: function(){
-      
-        this.gazeCur.object3D.getWorldPosition( this.gaze_pos );
-    
-        this.cam.object3D.getWorldPosition(this.camPos);
-
-        this.cam.object3D.getWorldQuaternion(this.worldQuaternion);
-        this.worldRotation = new THREE.Euler().setFromQuaternion(this.worldQuaternion);
-
-        // Get world direction
-
-        this.cam.object3D.getWorldDirection(this.worldDirection);
-
-
-        var fov = this.cam.getAttribute("camera").fov
-
-
-        content += ('campos: '+ JSON.stringify(this.camPos) +' camdir: '+JSON.stringify(this.worldDirection) +
-                    ' camrot: '+JSON.stringify(this.worldQuaternion) + ' gazepos: '+JSON.stringify(this.gaze_pos) +
-                    // ' matrix: '+JSON.stringify(cam.object3D.matrixWorld)+
-                    ' camfov: '+fov+" time: "+Date.now()+"\n");
-      
-      
-        // console.log('campos: '+ JSON.stringify(this.camPos) +' camdir: '+JSON.stringify(this.worldDirection) +
-        //             ' camrot: '+JSON.stringify(this.worldQuaternion) + ' gazepos: '+JSON.stringify(this.gaze_pos) +
-        //             // ' matrix: '+JSON.stringify(cam.object3D.matrixWorld)+
-        //             ' camfov: '+fov+" time: "+Date.now()+"\n");
-      
-      
-    },
-    
-  
-});
-
-
-
-AFRAME.registerComponent('log-data',{
-
-  init: function(){
-    
-
-     this.camPos = new THREE.Vector3();
-     this.camRot = new THREE.Matrix4();
-    
-    function downloadFile(data){
-            
-     const link = document.createElement("a");
-
-     const content = data;
-     const file = new Blob([content], { type: 'text/plain' });
-     link.href = URL.createObjectURL(file);
-     link.download = fileName;
-     link.click();
-     URL.revokeObjectURL(link.href);
-    };
-    
-    var sceneEl = document.querySelector('a-scene');
-    sceneEl.addEventListener('exit-vr', function () {
-         console.log("Exit VR");
-      
-         content+="Exit VR: time: "+Date.now()+"\n";
-         //downloadFile(content);
-
-      });
-    
-    
-    var leftCur = document.querySelector('#leftHand');
-    var rightCur = document.querySelector('#rightHand');
-    var gazeCur = document.querySelector('#gazeCursor');
-    var cam = document.querySelector('#cam');
-    
-    
-    
-    this.camPos.setFromMatrixPosition(cam.object3D.matrixWorld);
-    cam.object3D.getWorldPosition(this.camPos);
-    
-
-    // logging whenever the first intesected entity is changing
-    
-    gazeCur.addEventListener('raycaster-intersection', evt => {
-      
-          var curData = "";
-          var intersected_els = evt.detail.intersections;
-          
-          if(intersected_els.length>0){
-            
-            curData += ("Intersection: Gaze Cursor Intersection Details: Count: "+intersected_els.length+" time: "+Date.now()+"\n");
-            //console.log(intersected_els.length);
-            for(let k=0;k<intersected_els.length;k++){
-              
-              if(intersected_els[k].object.el.id!=""){
-                //console.log(intersected_els[k].point, intersected_els[k].distance, intersected_els[k].object.el.id);
-                curData += ("obj: "+intersected_els[k].object.el.id +" point: "+ JSON.stringify(intersected_els[k].point)+" distance: "+intersected_els[k].distance+"\n");
-              }
-            }
-            content+=curData;
-          }
-
-    });
-    
-     gazeCur.addEventListener('click', evt => {
-       
-         content+= "Click: Gaze Cursor Details: time: "+Date.now()+"\n";
-         content+= ("obj: "+evt.detail.intersectedEl.id+" point: "+JSON.stringify(evt.detail.intersection.point)+" distance: "+JSON.stringify(evt.detail.intersection.distance)+"\n");
-
-    });
-    
-//     leftCur.addEventListener('raycaster-intersection', evt => {
-    
-//           var curData = "";
-//           //this.raycaster = evt.detail.el;
-//           var intersected_els = evt.detail.intersections;
-          
-//           if(intersected_els.length>0){
-            
-//             curData += ("Intersection: Left Raycaster Intersection Details: Count: "+intersected_els.length+" time: "+Date.now()+"\n");
-//             for(let k=0;k<intersected_els.length;k++){
-//               if(intersected_els[k].object.el.id!=""){
-//               //console.log(intersected_els[k].point, intersected_els[k].distance, intersected_els[k].object);
-//               curData += ("obj: "+intersected_els[k].object.el.id +" point: "+ JSON.stringify(intersected_els[k].point)+" distance: "+intersected_els[k].distance+"\n");
-//               }
-//             }
-//             content+=curData;
-//           }
-         
-//     });
-    
-//     leftCur.addEventListener('click', evt => {
-       
-//          content+= "Click: Left Cursor Details: time: "+Date.now()+"\n";
-//          content+= ("obj: "+evt.detail.intersectedEl.id+" point: "+JSON.stringify(evt.detail.intersection.point)+" distance: "+JSON.stringify(evt.detail.intersection.distance)+"\n");
-
-//     });
-    
-    
-//     rightCur.addEventListener('raycaster-intersection', evt => {
-
-//           //this.raycaster = evt.detail.el;
-//           var curData = "";
-//           var intersected_els = evt.detail.intersections;
-          
-//           if(intersected_els.length>0){
-            
-//             curData += ("Intersection: Right Raycaster Intersection Details: Count: "+intersected_els.length+" time: "+Date.now()+"\n");
-//             for(let k=0;k<intersected_els.length;k++){
-//               if(intersected_els[k].object.el.id!=""){
-//               //console.log(intersected_els[k].point, intersected_els[k].distance, intersected_els[k].object);
-//               curData += ("obj: "+intersected_els[k].object.el.id +" point: "+ JSON.stringify(intersected_els[k].point)+" distance: "+intersected_els[k].distance+"\n");
-//               }
-//             }
-//             content+=curData;
-//           }
-         
-//     });
-    
-//     rightCur.addEventListener('click', evt => {
-       
-//          content+= "Click: Right Cursor Details: time: "+Date.now()+"\n";
-//          content+= ("obj: "+evt.detail.intersectedEl.id+" point: "+JSON.stringify(evt.detail.intersection.point)+" distance: "+JSON.stringify(evt.detail.intersection.distance)+"\n");
-
-//     });
-    
-
-  },
-  
-
-});
-
 // adding new code here
 
 
@@ -506,18 +98,13 @@ AFRAME.registerComponent('add-comp', {
           
           var cur_id = element.id
           if(cur_id!="leftHand" && cur_id!="rightHand" && cur_id!="cam" && cur_id!="gazeCursor"){
-          //if (cur_id.startsWith("arm") && !cur_id.startsWith("armadillo-parent") && !cur_id.startsWith("armadillo") ) {
             
             console.log(cur_id);
-            //var obj = document.querySelector('#'+cur_id);
-            
-            //var nm = obj.getAttribute('num');
-            
-            // if(nm%2==0){
+  
               element.setAttribute('over-writing','');
               element.setAttribute('class','raycastable');
               
-            // }
+
             
             
           }
@@ -620,8 +207,6 @@ AFRAME.registerComponent('over-writing',{
 
             dist_el.setAttribute('id',"dist_el");
 
-            dist_el.setAttribute('distraction-log','');
-
           }
               
               
@@ -631,8 +216,6 @@ AFRAME.registerComponent('over-writing',{
 
     
     this.el.addEventListener('raycaster-intersected-cleared', function(ev, target){
-              
-              // console.log('oops',cur_el.getAttribute('id'));
       
       
              if(over_write_start>=1){
@@ -644,12 +227,7 @@ AFRAME.registerComponent('over-writing',{
                 alert_comp.parentNode.removeChild(alert_comp);
               }
                
-             }
-              
-              
-              
-              
-              
+             }          
       });
     
   }
@@ -674,10 +252,9 @@ AFRAME.registerComponent('game-manager', {
     el.setAttribute('id','arm'+i);
     el.setAttribute('num',i);
 		el.setAttribute('position', idlePosition);
-		// el.setAttribute('look-at','#origin');
 		el.setAttribute('src','#armadillo');
-    // el.setAttribute('src','#jerry');
 		el.setAttribute('index', -1);
+    el.setAttribute('class','clickable');
 
 		sceneEl.appendChild(el);
 		
@@ -892,7 +469,6 @@ AFRAME.registerComponent('timer', {
         warn_comp.setAttribute("position","0 3.2 -2.450");
         warn_comp.setAttribute("id","warn_comp");
         warn_comp.setAttribute("scale","3 0.5");
-        warn_comp.setAttribute('distraction-log','');
          
         var warn_comp_2 = document.createElement('a-text');
         warn_comp_2.setAttribute("value","Click on VR to play again");

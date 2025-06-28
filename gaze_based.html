@@ -61,11 +61,11 @@
       </a-entity>
     </a-entity>
       
-        <a-entity game-manager></a-entity>
-        <a-gltf-model src="#level"></a-gltf-model>
+        <a-entity game-manager class="clickable"></a-entity>
+        <a-gltf-model src="#level" class="clickable"></a-gltf-model>
     
       
-        <a-image id="msg" position="1.8 1 -2.5" scale="0.5 0.5 0.5" rotation="0 -45 0" src="#banner" visible="false">
+        <a-image id="msg" position="1.8 1 -2.5" scale="0.5 0.5 0.5" rotation="0 -45 0" src="#banner" visible="false" class="clickable">
           <a-text value="Started" position="-0.18 0.1 1" scale="1 1 1" color="black"></a-text>
           <a-text value="Started" position="-0.19 0.1 1" scale="1 1 1" color="black"></a-text>
         </a-image>
@@ -75,12 +75,12 @@
  	      <a-sound id="whack-sound" src="#whack" position="0 1 0"></a-sound>
 
 
-      <a-text timer="false" id="timer" value="0:20" align="center" position="0.302 2.085 -2.450" color="black" scale="3 3 3"></a-text>
-      <a-text id="score" value="Score: 0" align="center" position="0.302 2.7 -2.450" color="black" scale="2 2 2" rotation="0 0 0"></a-text>
+      <a-text timer="false" id="timer" value="0:20" align="center" position="0.302 2.085 -2.450" color="black" scale="3 3 3" class="clickable"></a-text>
+      <a-text id="score" value="Score: 0" align="center" position="0.302 2.7 -2.450" color="black" scale="2 2 2" rotation="0 0 0" class="clickable"></a-text>
       
-      <a-entity id="armadillo-parent" scale="4 4 4"></a-entity>
+      <a-entity id="armadillo-parent" scale="4 4 4" class="clickable"></a-entity>
 	  
-	    <a-entity id="origin"></a-entity>
+	    <a-entity id="origin" class="clickable"></a-entity>
 
       <a-entity reload-comp></a-entity>
     </a-scene>
